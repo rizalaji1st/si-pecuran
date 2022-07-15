@@ -18,6 +18,9 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::controller(AdminController::class)->prefix('admin')->name('admin.')->group(function () {
+Route::controller(AdminController::class)->middleware('can:administrator')->prefix('admin')->name('admin.')->group(function () {
     Route::get('/', 'index');
 });
+Auth::routes();
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
