@@ -110,7 +110,7 @@
                                                 </svg>
                                             </span>
                                         </button>
-                                        <button class="btn btn-icon btn-active-light-primary w-30px h-30px" data-kt-permissions-table-filter="delete_row">
+                                        <button class="btn btn-icon btn-active-light-primary w-30px h-30px" data-kt-permissions-table-filter="delete_row" onclick="setDataDeleteUser({{$user->id}})">
                                             <span class="svg-icon svg-icon-3">
                                                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
                                                     <path d="M5 9C5 8.44772 5.44772 8 6 8H18C18.5523 8 19 8.44772 19 9V18C19 19.6569 17.6569 21 16 21H8C6.34315 21 5 19.6569 5 18V9Z" fill="black" />
@@ -130,6 +130,10 @@
                 <!--end::Card body-->
             </div>
             <!--end::Card-->
+
+
+
+
             <!--begin::Modals-->
             <!--begin::Modal - Add permissions-->
             <div class="modal fade" id="kt_modal_add_user" tabindex="-1" aria-hidden="true">
@@ -140,7 +144,7 @@
                         <!--begin::Modal header-->
                         <div class="modal-header">
                             <!--begin::Modal title-->
-                            <h2 class="fw-bolder">Add a Permission</h2>
+                            <h2 class="fw-bolder">Add a User</h2>
                             <!--end::Modal title-->
                             <!--begin::Close-->
                             <div class="btn btn-icon btn-sm btn-active-icon-primary" data-kt-permissions-modal-action="close">
@@ -159,35 +163,73 @@
                         <!--begin::Modal body-->
                         <div class="modal-body scroll-y mx-5 mx-xl-15 my-7">
                             <!--begin::Form-->
-                            <form id="kt_modal_add_user_form" class="form" action="#">
+                            <form id="kt_modal_add_user_form" method="POST" class="form" action="{{url('/admin/manajemen-user/store')}}">
+                                @csrf
                                 <!--begin::Input group-->
                                 <div class="fv-row mb-7">
                                     <!--begin::Label-->
                                     <label class="fs-6 fw-bold form-label mb-2">
-                                        <span class="required">Permission Name</span>
-                                        <i class="fas fa-exclamation-circle ms-2 fs-7" data-bs-toggle="popover" data-bs-trigger="hover" data-bs-html="true" data-bs-content="Permission names is required to be unique."></i>
+                                        <span class="required">Name</span>
+                                        <i class="fas fa-exclamation-circle ms-2 fs-7" data-bs-toggle="popover" data-bs-trigger="hover" data-bs-html="true" data-bs-content="name is required."></i>
                                     </label>
                                     <!--end::Label-->
                                     <!--begin::Input-->
-                                    <input class="form-control form-control-solid" placeholder="Enter a permission name" name="permission_name" />
+                                    <input class="form-control form-control-solid" placeholder="Enter the username" id="update_user_name" name="name" />
                                     <!--end::Input-->
                                 </div>
                                 <!--end::Input group-->
                                 <!--begin::Input group-->
                                 <div class="fv-row mb-7">
-                                    <!--begin::Checkbox-->
-                                    <label class="form-check form-check-custom form-check-solid me-9">
-                                        <input class="form-check-input" type="checkbox" value="" name="permissions_core" id="kt_permissions_core" />
-                                        <span class="form-check-label" for="kt_permissions_core">Set as core permission</span>
+                                    <!--begin::Label-->
+                                    <label class="fs-6 fw-bold form-label mb-2">
+                                        <span class="required">Email</span>
+                                        <i class="fas fa-exclamation-circle ms-2 fs-7" data-bs-toggle="popover" data-bs-trigger="hover" data-bs-html="true" data-bs-content="email is required."></i>
                                     </label>
-                                    <!--end::Checkbox-->
+                                    <!--end::Label-->
+                                    <!--begin::Input-->
+                                    <input class="form-control form-control-solid" placeholder="Enter the email" name="email" id="update_user_email"/>
+                                    <!--end::Input-->
                                 </div>
                                 <!--end::Input group-->
-                                <!--begin::Disclaimer-->
-                                <div class="text-gray-600">Permission set as a
-                                <strong class="me-1">Core Permission</strong>will be locked and
-                                <strong class="me-1">not editable</strong>in future</div>
-                                <!--end::Disclaimer-->
+                                <!--begin::Input group-->
+                                <div class="fv-row mb-7">
+                                    <!--begin::Label-->
+                                    <label class="required fs-6 fw-bold form-label mb-2">
+                                        <span>Password</span>
+                                        <i class="fas fa-exclamation-circle ms-2 fs-7" data-bs-toggle="popover" data-bs-trigger="hover" data-bs-html="true" data-bs-content="enter the password."></i>
+                                    </label>
+                                    <!--end::Label-->
+                                    <!--begin::Input-->
+                                    <input type="password" class="form-control form-control-solid" name="password" id="update_user_password"/>
+                                    <!--end::Input-->
+                                </div>
+                                <div class="mb-7">
+                                    <!--begin::Label-->
+                                    <label class="required fw-bold fs-6 mb-5">Role</label>
+                                    <!--end::Label-->
+                                    <!--begin::Roles-->
+                                    @foreach ($roles as $role)
+                                        <!--begin::Input row-->
+                                        <div class="d-flex fv-row">
+                                            <!--begin::Radio-->
+                                            <div class="form-check form-check-custom form-check-solid">
+                                                <!--begin::Input-->
+                                                <input class="form-check-input me-3" name="role_id" type="radio" value="{{$role->id}}" id="kt_modal_add_role_option_{{$role->id}}">
+                                                <!--end::Input-->
+                                                <!--begin::Label-->
+                                                <label class="form-check-label" for="kt_modal_add_role_option_{{$role->id}}">
+                                                    <div class="fw-bolder text-gray-800">{{$role->nama_role}}</div>
+                                                </label>
+                                                <!--end::Label-->
+                                            </div>
+                                            <!--end::Radio-->
+                                        </div>
+                                        <div class="separator separator-dashed my-5"></div>
+                                        <!--end::Input row-->
+                                    @endforeach
+                                    <!--end::Roles-->
+                                </div>
+                                <!--end::Input group-->
                                 <!--begin::Actions-->
                                 <div class="text-center pt-15">
                                     <button type="reset" class="btn btn-light me-3" data-kt-permissions-modal-action="cancel">Discard</button>
@@ -325,6 +367,10 @@
             </div>
             <!--end::Modal - Update permissions-->
             <!--end::Modals-->
+
+            <form action="#" method="POST" id="delete_user_form">
+                @csrf
+            </form>
         </div>
         <!--end::Container-->
     </div>
@@ -338,6 +384,10 @@
 
 @push('script_stack')
     <script>
+        function setDataDeleteUser(id){
+            document.getElementById('delete_user_form').action = "{{url('/admin/manajemen-user/destroy')}}"+ "/" + id;
+        }
+
         var KTUsersPermissionsList = function () {
         // Shared variables
         var datatable;
@@ -402,18 +452,9 @@
                         }
                     }).then(function (result) {
                         if (result.value) {
-                            Swal.fire({
-                                text: "You have deleted " + permissionName + "!.",
-                                icon: "success",
-                                buttonsStyling: false,
-                                confirmButtonText: "Ok, got it!",
-                                customClass: {
-                                    confirmButton: "btn fw-bold btn-primary",
-                                }
-                            }).then(function () {
-                                // Remove current row
-                                datatable.row($(parent)).remove().draw();
-                            });
+                            e.preventDefault();
+                            document.getElementById('delete_user_form').submit();
+
                         } else if (result.dismiss === 'cancel') {
                             Swal.fire({
                                 text: customerName + " was not deleted.",
@@ -467,10 +508,31 @@
                 form,
                 {
                     fields: {
-                        'permission_name': {
+                        'name': {
                             validators: {
                                 notEmpty: {
-                                    message: 'Permission name is required'
+                                    message: 'name is required'
+                                }
+                            }
+                        },
+                        'email': {
+                            validators: {
+                                notEmpty: {
+                                    message: 'email is required'
+                                }
+                            }
+                        },
+                        'email': {
+                            validators: {
+                                notEmpty: {
+                                    message: 'password is required'
+                                }
+                            }
+                        },
+                        'role_id': {
+                            validators: {
+                                notEmpty: {
+                                    message: 'role is required'
                                 }
                             }
                         },
@@ -491,57 +553,18 @@
             const closeButton = element.querySelector('[data-kt-permissions-modal-action="close"]');
             closeButton.addEventListener('click', e => {
                 e.preventDefault();
-
-                Swal.fire({
-                    text: "Are you sure you would like to close?",
-                    icon: "warning",
-                    showCancelButton: true,
-                    buttonsStyling: false,
-                    confirmButtonText: "Yes, close it!",
-                    cancelButtonText: "No, return",
-                    customClass: {
-                        confirmButton: "btn btn-primary",
-                        cancelButton: "btn btn-active-light"
-                    }
-                }).then(function (result) {
-                    if (result.value) {
-                        modal.hide(); // Hide modal				
-                    } 
-                });
+                
+                form.reset(); // Reset form	
+                modal.hide(); // Hide modal
             });
 
             // Cancel button handler
             const cancelButton = element.querySelector('[data-kt-permissions-modal-action="cancel"]');
             cancelButton.addEventListener('click', e => {
                 e.preventDefault();
-
-                Swal.fire({
-                    text: "Are you sure you would like to cancel?",
-                    icon: "warning",
-                    showCancelButton: true,
-                    buttonsStyling: false,
-                    confirmButtonText: "Yes, cancel it!",
-                    cancelButtonText: "No, return",
-                    customClass: {
-                        confirmButton: "btn btn-primary",
-                        cancelButton: "btn btn-active-light"
-                    }
-                }).then(function (result) {
-                    if (result.value) {
-                        form.reset(); // Reset form	
-                        modal.hide(); // Hide modal				
-                    } else if (result.dismiss === 'cancel') {
-                        Swal.fire({
-                            text: "Your form has not been cancelled!.",
-                            icon: "error",
-                            buttonsStyling: false,
-                            confirmButtonText: "Ok, got it!",
-                            customClass: {
-                                confirmButton: "btn btn-primary",
-                            }
-                        });
-                    }
-                });
+                
+                form.reset(); // Reset form	
+                modal.hide(); // Hide modal
             });
 
             // Submit button handler
@@ -556,37 +579,10 @@
                         console.log('validated!');
 
                         if (status == 'Valid') {
-                            // Show loading indication
                             submitButton.setAttribute('data-kt-indicator', 'on');
-
-                            // Disable button to avoid multiple click 
                             submitButton.disabled = true;
 
-                            // Simulate form submission. For more info check the plugin's official documentation: https://sweetalert2.github.io/
-                            setTimeout(function () {
-                                // Remove loading indication
-                                submitButton.removeAttribute('data-kt-indicator');
-
-                                // Enable button
-                                submitButton.disabled = false;
-
-                                // Show popup confirmation 
-                                Swal.fire({
-                                    text: "Form has been successfully submitted!",
-                                    icon: "success",
-                                    buttonsStyling: false,
-                                    confirmButtonText: "Ok, got it!",
-                                    customClass: {
-                                        confirmButton: "btn btn-primary"
-                                    }
-                                }).then(function (result) {
-                                    if (result.isConfirmed) {
-                                        modal.hide();
-                                    }
-                                });
-
-                                //form.submit(); // Submit form
-                            }, 2000);
+                            document.getElementById('kt_modal_add_user_form').submit()
                         } else {
                             // Show popup warning. For more info check the plugin's official documentation: https://sweetalert2.github.io/
                             Swal.fire({
@@ -652,10 +648,17 @@
                         'email': {
                             validators: {
                                 notEmpty: {
-                                    message: 'name is required'
+                                    message: 'email is required'
                                 }
                             }
-                        }
+                        },
+                        'role_id': {
+                            validators: {
+                                notEmpty: {
+                                    message: 'role is required'
+                                }
+                            }
+                        },
                     },
 
                     plugins: {

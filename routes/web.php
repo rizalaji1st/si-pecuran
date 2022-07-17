@@ -28,6 +28,7 @@ Route::middleware('can:administrator')->prefix('admin')->name('admin.')->group(f
             Route::get('/',[ManajemenUserController::class,'index'])->name('index');
             Route::post('/store',[ManajemenUserController::class,'store'])->name('store');
             Route::post('/update',[ManajemenUserController::class,'update'])->name('update');
+            Route::post('/destroy/{user}',[ManajemenUserController::class,'destroy'])->name('destroy');
         });
 
     });
