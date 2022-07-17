@@ -4,7 +4,8 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\{
     AdminController,
     ManajemenUserController,
-    ManajemenCurahHujanController
+    ManajemenWilayahController,
+    ManajemenCurahHujanController,
 };
 
 /*
@@ -31,6 +32,12 @@ Route::middleware('can:administrator')->prefix('admin')->name('admin.')->group(f
             Route::post('/update',[ManajemenUserController::class,'update'])->name('update');
             Route::post('/destroy/{user}',[ManajemenUserController::class,'destroy'])->name('destroy');
         });
+    });
+    Route::prefix('manajemen-wilayah')->name('manajemen-wilayah.')->group(function(){
+        Route::get('/',[ManajemenWilayahController::class,'index'])->name('index');
+        Route::post('/store',[ManajemenWilayahController::class,'store'])->name('store');
+        Route::post('/update',[ManajemenWilayahController::class,'update'])->name('update');
+        Route::post('/destroy/{wilayah}',[ManajemenWilayahController::class,'destroy'])->name('destroy');
     });
     Route::prefix('manajemen-curah-hujan')->name('manajemen-curah-hujan.')->group(function(){
         Route::get('/',[ManajemenCurahHujanController::class,'index'])->name('index');
