@@ -1,7 +1,10 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\AdminController;
+use App\Http\Controllers\{
+    AdminController,
+    ManajemenUserController
+};
 
 /*
 |--------------------------------------------------------------------------
@@ -18,8 +21,16 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::controller(AdminController::class)->middleware('can:administrator')->prefix('admin')->name('admin.')->group(function () {
-    Route::get('/', 'index');
+Route::middleware('can:administrator')->prefix('admin')->name('admin.')->group(function () {
+    Route::get('/', [AdminController::class, 'index']);
+    Route::middleware('can:are-superAdmin')->group(function(){
+        Route::prefix('manajemen-user')->name('manajemen-user.')->group(function(){
+            Route::get('/',[ManajemenUserController::class,'index'])->name('index');
+            Route::post('/store',[ManajemenUserController::class,'store'])->name('store');
+            Route::post('/update',[ManajemenUserController::class,'update'])->name('update');
+        });
+
+    });
 });
 Auth::routes();
 

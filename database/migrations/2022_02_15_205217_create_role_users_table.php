@@ -20,7 +20,7 @@ class CreateRoleUsersTable extends Migration
             $table->timestamps();
 
             $table->foreign('users_id')->references('id')->on('users')->onDelete('cascade');
-            $table->foreign('roles_id')->references('id')->on('role_users')->onDelete('cascade');
+            $table->foreign('roles_id')->references('id')->on('roles')->onDelete('cascade');
         });
     }
 
