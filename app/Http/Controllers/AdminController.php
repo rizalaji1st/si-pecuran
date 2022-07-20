@@ -3,6 +3,10 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\{
+    Wilayah,
+    CurahHujan
+};
 
 class AdminController extends Controller
 {
@@ -13,7 +17,9 @@ class AdminController extends Controller
      */
     public function index()
     {
-        return view('pages.admin.index');
+        $wilayah = Wilayah::get()->count();
+        $curahHujan = CurahHujan::where('curah_hujan','!=', 0)->count();
+        return view('pages.admin.index', compact('wilayah','curahHujan'));
     }
 
     /**

@@ -11,7 +11,7 @@ use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
 
-class ManajemenCurahHujanController extends Controller
+class PublikController extends Controller
 {
     public function index(){
         $data = null;
@@ -33,7 +33,7 @@ class ManajemenCurahHujanController extends Controller
         }
 
         $wilayahs = Wilayah::get();
-        return view('pages.admin.manajemen-curah-hujan.index', compact('wilayahs', 'data'));
+        return view('pages.publik.data-curah-hujan.index', compact('wilayahs', 'data'));
     }
 
     public function getData(Request $request){
@@ -72,13 +72,4 @@ class ManajemenCurahHujanController extends Controller
         return response()->json($response);
     }
 
-    public function update(Request $request){
-        $curahHujan = CurahHujan::find($request['id']);
-        $curahHujan->curah_hujan = floatval($request['curah_hujan']);
-        $curahHujan->updated_by = Auth::id();
-        $curahHujan->save(); 
-
-        alert()->success('Berhasil','Berhasil edit data curah_hujan');
-        return redirect('/admin/manajemen-curah-hujan')->with('curah_hujan', $curahHujan->id);
-    }
 }

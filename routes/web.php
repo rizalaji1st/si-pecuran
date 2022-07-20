@@ -6,6 +6,7 @@ use App\Http\Controllers\{
     ManajemenUserController,
     ManajemenWilayahController,
     ManajemenCurahHujanController,
+    PublikController
 };
 
 /*
@@ -45,6 +46,16 @@ Route::middleware('can:administrator')->prefix('admin')->name('admin.')->group(f
         Route::post('/get-data',[ManajemenCurahHujanController::class,'getData'])->name('get-data');
     });
 });
-Auth::routes();
+
+
+Route::prefix('publik')->name('publik.')->group(function () {
+    Route::prefix('data-curah-hujan')->name('data-curah-hujan.')->group(function(){
+        Route::get('/',[PublikController::class,'index'])->name('index');
+        Route::post('/get-data',[PublikController::class,'getData'])->name('get-data');
+    });
+});
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+Auth::routes();
+
