@@ -55,7 +55,7 @@ Route::prefix('publik')->name('publik.')->group(function () {
     });
 });
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
 Auth::routes();
 

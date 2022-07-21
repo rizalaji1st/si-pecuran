@@ -72,7 +72,11 @@
 								<!--end::Menu wrapper-->
 								<!--begin::Toolbar-->
 								<div class="flex-equal text-end ms-1">
-									<a href="{{url('/login')}}" class="btn btn-success">Login</a>
+									@guest
+										<a href="{{url('/login')}}" class="btn btn-success">Login</a>
+									@else
+										<a href="{{url('/publik/data-curah-hujan')}}" class="btn btn-success">Dashboard</a>
+									@endguest
 								</div>
 								<!--end::Toolbar-->
 							</div>
@@ -147,7 +151,7 @@
                                 <div class="mb-0">
                                     <!--begin::Value-->
                                     <div class="fs-lg-2hx fs-2x fw-bolder text-gray d-flex flex-center">
-                                        <div class="min-w-70px" data-kt-countup="true" data-kt-countup-value="700">0</div>
+                                        <div class="min-w-70px" data-kt-countup="true" data-kt-countup-value="{{$data['wilayah']}}">0</div>
                                     </div>
                                     <!--end::Value-->
                                     <!--begin::Label-->
@@ -174,7 +178,7 @@
                                 <div class="mb-0">
                                     <!--begin::Value-->
                                     <div class="fs-lg-2hx fs-2x fw-bolder text-gray d-flex flex-center">
-                                        <div class="min-w-70px" data-kt-countup="true" data-kt-countup-value="80" data-kt-countup-suffix="K+">0</div>
+                                        <div class="min-w-70px" data-kt-countup="true" data-kt-countup-value="{{$data['curah_hujan']}}">0</div>
                                     </div>
                                     <!--end::Value-->
                                     <!--begin::Label-->
@@ -201,7 +205,7 @@
                                 <div class="mb-0">
                                     <!--begin::Value-->
                                     <div class="fs-lg-2hx fs-2x fw-bolder text-gray d-flex flex-center">
-                                        <div class="min-w-70px" data-kt-countup="true" data-kt-countup-value="35" data-kt-countup-suffix="M+">0</div>
+                                        <div class="min-w-70px" data-kt-countup="true" data-kt-countup-value="{{$data['user']}}">0</div>
                                     </div>
                                     <!--end::Value-->
                                     <!--begin::Label-->
@@ -237,7 +241,7 @@
 							<!--begin::Copyright-->
 							<div class="d-flex align-items-center order-2 order-md-1">
 								<!--begin::Logo-->
-								<a href="../../demo1/dist/landing.html">
+								<a href="#">
 									<img alt="Logo" src="{{asset('metronic/assets/media/logos/sipecuran-light.png')}}" class="h-25px h-md-30px" />
 								</a>
 								<!--end::Logo image-->

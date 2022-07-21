@@ -3,19 +3,14 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\{
+    Wilayah,
+    CurahHujan,
+    User,
+};
 
 class HomeController extends Controller
 {
-    /**
-     * Create a new controller instance.
-     *
-     * @return void
-     */
-    public function __construct()
-    {
-        $this->middleware('auth');
-    }
-
     /**
      * Show the application dashboard.
      *
@@ -23,6 +18,11 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('home');
+        $data = [
+            'wilayah' => Wilayah::count(),
+            'curah_hujan' => CurahHujan::where('curah_hujan','!=',0)->count(),
+            'user' => User::count(),
+        ];
+        return view('welcome', compact('data'));
     }
 }
