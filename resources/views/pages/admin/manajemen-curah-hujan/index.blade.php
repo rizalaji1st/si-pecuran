@@ -191,7 +191,7 @@
                                                     <!--begin::Table row-->
                                                     <tr class="text-start text-gray-400 fw-bolder fs-7 text-uppercase gs-0">
                                                         <th class="min-w-125px text-center">Tanggal</th>
-                                                        <th class="min-w-125px text-center">Curah Hujan</th>
+                                                        <th class="min-w-125px text-center">Curah Hujan (mm)</th>
                                                         <th class="min-w-100px text-center">Actions</th>
                                                     </tr>
                                                     <!--end::Table row-->
