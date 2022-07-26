@@ -2,7 +2,7 @@
 <html lang="en">
 	<!--begin::Head-->
 	<head><base href="">
-		<title>SI-Pecuran</title>
+		<title>SI-Perahu</title>
 		<meta name="description" content="The most advanced Bootstrap Admin Theme on Themeforest trusted by 94,000 beginners and professionals. Multi-demo, Dark Mode, RTL support and complete React, Angular, Vue &amp; Laravel versions. Grab your copy now and get life-time updates for free." />
 		<meta name="keywords" content="Metronic, bootstrap, bootstrap 5, Angular, VueJs, React, Laravel, admin themes, web design, figma, web development, free templates, free admin themes, bootstrap theme, bootstrap template, bootstrap dashboard, bootstrap dak mode, bootstrap button, bootstrap datepicker, bootstrap timepicker, fullcalendar, datatables, flaticon" />
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -90,7 +90,7 @@
 						<!--begin::Heading-->
 						<div class="text-center mb-5 mb-lg-10 py-10 py-lg-20">
 							<!--begin::Title-->
-							<h1 class="text-white lh-base fw-bolder fs-2x fs-lg-3x mb-15">SI-Pecuran
+							<h1 class="text-white lh-base fw-bolder fs-2x fs-lg-3x mb-15">SI-Perahu
                                 <br>
 							<span style="background: linear-gradient(to right, #12CE5D 0%, #FFD80C 100%);-webkit-background-clip: text;-webkit-text-fill-color: transparent;">
 								<span id="kt_landing_hero_text">Sistem Pengelolaan Curah Hujan</span>
@@ -101,6 +101,18 @@
 							<!--end::Action-->
 						</div>
 						<!--end::Heading-->
+						<div class="d-flex flex-center flex-wrap position-relative px-5">
+							<!--begin::Client-->
+							<div class="d-flex flex-center m-3 m-md-6" data-bs-toggle="tooltip" title="" data-bs-original-title="Kementrian PUPR">
+								<img src="{{asset('metronic/assets/media/svg/brand-logos/pupr.png')}}" class="mh-40px mh-lg-50px" alt="">
+							</div>
+							<!--end::Client-->
+							<!--begin::Client-->
+							<div class="d-flex flex-center m-3 m-md-6" data-bs-toggle="tooltip" title="" data-bs-original-title="Kabupaten Karanganyar">
+								<img src="{{asset('metronic/assets/media/svg/brand-logos/kabupaten_karanganyar.png')}}" class="mh-40px mh-lg-50px" alt="">
+							</div>
+							<!--end::Client-->
+						</div>
 					</div>
 					<!--end::Landing hero-->
 				</div>
@@ -121,11 +133,10 @@
                     <!--begin::Heading-->
                     <div class="text-center mt-15 mb-18" id="achievements" data-kt-scroll-offset="{default: 100, lg: 150}">
                         <!--begin::Title-->
-                        <h3 class="fs-2hx text-dark fw-bolder mb-5">Platform SI-Pecuran</h3>
+                        <h3 class="fs-2hx text-dark fw-bolder mb-5">Platform SI-Perahu</h3>
                         <!--end::Title-->
                         <!--begin::Description-->
-                        <div class="fs-5 text-gray-700 fw-bold">Kami memberikan platform untuk pengelolaan curah hujan menjadi lebih mudah
-                        <br />dan juga dapat lebih terakses untuk publik</div>
+                        <div class="fs-5 text-gray-700 fw-bold">Data curah hujan merupakan data hasil pencatatan dari alat pengukur curah hujan (ombrometer) yang terpasang di setiap Kecamatan di Kabupaten Karanganyar. Alat pengukur curah hujan dioperasikan oleh petugas mantri air di setiap UPT DPU PR Kabupaten Karanganyar. Data tersebut dibaca menggunakan gelas ukur, dicatat, lalu dikirimkan ke server dan website agar dapat diakses oleh masyarakat luas kapanpun dan dimanapun.</div>
                         <!--end::Description-->
                     </div>
                     <!--end::Heading-->
@@ -246,7 +257,7 @@
 								</a>
 								<!--end::Logo image-->
 								<!--begin::Logo image-->
-								<span class="mx-5 fs-6 fw-bold text-gray-600 pt-1" href="https://keenthemes.com">© 2022 SI-Pecuran.</span>
+								<span class="mx-5 fs-6 fw-bold text-gray-600 pt-1" href="https://keenthemes.com">© 2022 SI-Perahu.</span>
 								<!--end::Logo image-->
 							</div>
 							<!--end::Copyright-->
