@@ -103,7 +103,7 @@
 						<!--end::Heading-->
 						<div class="d-flex flex-center flex-wrap position-relative px-5">
 							<!--begin::Client-->
-							<div class="d-flex flex-center m-3 m-md-6" data-bs-toggle="tooltip" title="" data-bs-original-title="Kementrian PUPR">
+							<div class="d-flex flex-center m-3 m-md-6" data-bs-toggle="tooltip" title="" data-bs-original-title="Dinas PUPR">
 								<img src="{{asset('metronic/assets/media/svg/brand-logos/pupr.png')}}" class="mh-40px mh-lg-50px" alt="">
 							</div>
 							<!--end::Client-->
@@ -257,7 +257,7 @@
 								</a>
 								<!--end::Logo image-->
 								<!--begin::Logo image-->
-								<span class="mx-5 fs-6 fw-bold text-gray-600 pt-1" href="https://keenthemes.com">© 2022 SI-Perahu.</span>
+								<span class="mx-5 fs-6 fw-bold text-gray-600 pt-1" href="https://keenthemes.com">© 2022 SI-Perahu. CP : 085725017025</span>
 								<!--end::Logo image-->
 							</div>
 							<!--end::Copyright-->

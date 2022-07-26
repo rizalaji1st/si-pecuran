@@ -314,7 +314,7 @@
 							<!--begin::Copyright-->
 							<div class="text-dark order-2 order-md-1">
 								<span class="text-muted fw-bold me-1">2022©</span>
-								<a href="#" class="text-gray-800 text-hover-primary">Si-Pencuran</a>
+								<a href="#" class="text-gray-800 text-hover-primary">Si-Perahu. CP : 085725017025</a>
 							</div>
 							<!--end::Copyright-->
 						</div>
