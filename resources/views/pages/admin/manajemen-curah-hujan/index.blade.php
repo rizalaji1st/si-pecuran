@@ -60,7 +60,7 @@
                                     <!--begin::Select-->
                                     <select class="form-select form-select-solid" id="search_tahun" name="tahun" data-control="select2" data-placeholder="Select tahun" data-hide-search="true">
                                         <option value=""></option>
-                                        @for ($i = now()->year; $i >= 2015; $i--)
+                                        @for ($i = now()->year; $i >= 2012; $i--)
                                             <option value="{{$i}}" {{$data ? ($data['curah_hujans'][0]->tahun == $i ? "selected": "") : ""}}>{{$i}}</option>
                                         @endfor
                                     </select>
