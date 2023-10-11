@@ -97,7 +97,7 @@ class ManajemenCurahHujanController extends Controller
     }
 
     public function importView(){
-        $curahHujanImport = CurahHujanImportModel::orderby(DB::raw('case when status= "tidak valid" then 1 when status= "valid" then 2 end'))->get();
+        $curahHujanImport = CurahHujanImportModel::orderby(DB::raw('case when status= "tidak valid" then 1 when status= "valid" then 2 end'))->orderBy('tanggal')->get();
         $wilayah = Wilayah::find($curahHujanImport[0]->wilayahs_id);
         return view('pages.admin.manajemen-curah-hujan.import-view', compact('wilayah', 'curahHujanImport'));
     }
