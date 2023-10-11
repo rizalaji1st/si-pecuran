@@ -91,6 +91,9 @@
                                 <!--end::Input group-->
                                 <!--begin::Action-->
                                 <div class="d-flex align-items-center justify-content-end">
+                                    <a class="btn btn-success me-2" data-bs-toggle="modal" data-bs-target="#kt_modal_import_curah_hujan">
+                                        Import
+                                    </a>
                                     <a id="button_lihat_data" class="btn btn-primary">Lihat</a>
                                 </div>
                                 <!--end::Action-->
@@ -319,6 +322,83 @@
         </div>
         <!--end::Modal - Update permissions-->
 
+        <!--begin::Modal - Update permissions-->
+        <div class="modal fade" id="kt_modal_import_curah_hujan" tabindex="-1" aria-hidden="true">
+            <!--begin::Modal dialog-->
+            <div class="modal-dialog modal-dialog-centered mw-650px">
+                <!--begin::Modal content-->
+                <div class="modal-content">
+                    <!--begin::Modal header-->
+                    <div class="modal-header">
+                        <!--begin::Modal title-->
+                        <h2 class="fw-bolder">Import Curah Hujan</h2>
+                        <!--end::Modal title-->
+                        <!--begin::Close-->
+                        <div class="btn btn-icon btn-sm btn-active-icon-primary" data-kt-permissions-modal-action="close">
+                            <!--begin::Svg Icon | path: icons/duotune/arrows/arr061.svg-->
+                            <span class="svg-icon svg-icon-1">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+                                    <rect opacity="0.5" x="6" y="17.3137" width="16" height="2" rx="1" transform="rotate(-45 6 17.3137)" fill="black" />
+                                    <rect x="7.41422" y="6" width="16" height="2" rx="1" transform="rotate(45 7.41422 6)" fill="black" />
+                                </svg>
+                            </span>
+                            <!--end::Svg Icon-->
+                        </div>
+                        <!--end::Close-->
+                    </div>
+                    <!--end::Modal header-->
+                    <!--begin::Modal body-->
+                    <div class="modal-body scroll-y mx-5 mx-xl-15 my-7">
+                        <!--begin::Form-->
+                        <form id="kt_modal_import_curah_hujan_form" method="POST" class="form" action="{{url('/admin/manajemen-curah-hujan/import')}}" enctype="multipart/form-data">
+                            @csrf
+                            <!--begin::Input group-->
+                            <div class="fv-row mb-7">
+                                <label class="fs-6 form-label fw-bolder text-dark">Wilayah</label>
+                                <!--begin::Select-->
+                                <select class="form-select form-select-solid" name="wilayah" data-control="select2" data-placeholder="Select wilayah" data-hide-search="true"  data-bs-content="wilayah is required.">
+                                    <option value=""></option>
+                                    @foreach ($wilayahs as $wilayah)
+                                        <option value="{{$wilayah->id}}" {{$data ? ($data['curah_hujans'][0]->wilayahs_id == $wilayah->id ? "selected": "") : ""}}>({{$wilayah->kode}}) {{$wilayah->name}}</option>
+                                    @endforeach
+                                </select>
+                                <!--end::Select-->
+                            </div>
+                            <!--end::Input group-->
+                            <!--begin::Input group-->
+                            <div class="fv-row mb-7">
+                                <!--begin::Label-->
+                                <label class="fs-6 fw-bold form-label mb-2">
+                                    <span class="required">Data Curah Hujan</span>
+                                    <i class="fas fa-exclamation-circle ms-2 fs-7" data-bs-toggle="popover" data-bs-trigger="hover" data-bs-html="true" data-bs-content="curah hujan is required."></i>
+                                </label>
+                                <!--end::Label-->
+                                <!--begin::Input-->
+                                <input class="form-control form-control-solid" type="file" placeholder="Enter the curah hujan" name="curah_hujan" />
+                                <!--end::Input-->
+                            </div>
+                            <!--end::Input group-->
+                            <!--begin::Actions-->
+                            <div class="text-center pt-15">
+                                <button type="reset" class="btn btn-light me-3" data-kt-permissions-modal-action="cancel">Discard</button>
+                                <button type="submit" class="btn btn-primary" data-kt-permissions-modal-action="submit">
+                                    <span class="indicator-label">Submit</span>
+                                    <span class="indicator-progress">Please wait...
+                                    <span class="spinner-border spinner-border-sm align-middle ms-2"></span></span>
+                                </button>
+                            </div>
+                            <!--end::Actions-->
+                        </form>
+                        <!--end::Form-->
+                    </div>
+                    <!--end::Modal body-->
+                </div>
+                <!--end::Modal content-->
+            </div>
+            <!--end::Modal dialog-->
+        </div>
+        <!--end::Modal - Update permissions-->
+
     </div>
     <!--end::Post-->
 @endsection
@@ -426,6 +506,113 @@
                 form,
                 {
                     fields: {
+                        'wilayah': {
+                            validators: {
+                                notEmpty: {
+                                    message: 'wilayah is required'
+                                }
+                            }
+                        },
+                        'curah_hujan': {
+                            validators: {
+                                notEmpty: {
+                                    message: 'curah hujan is required'
+                                }
+                            }
+                        }
+                    },
+
+                    plugins: {
+                        trigger: new FormValidation.plugins.Trigger(),
+                        bootstrap: new FormValidation.plugins.Bootstrap5({
+                            rowSelector: '.fv-row',
+                            eleInvalidClass: '',
+                            eleValidClass: ''
+                        })
+                    }
+                }
+            );
+
+            // Close button handler
+            const closeButton = element.querySelector('[data-kt-permissions-modal-action="close"]');
+            closeButton.addEventListener('click', e => {
+                e.preventDefault();
+                
+                form.reset(); // Reset form	
+                modal.hide(); // Hide modal				
+            });
+
+            // Cancel button handler
+            const cancelButton = element.querySelector('[data-kt-permissions-modal-action="cancel"]');
+            cancelButton.addEventListener('click', e => {
+                e.preventDefault();
+                
+                form.reset(); // Reset form	
+                modal.hide(); // Hide modal		
+            });
+
+            // Submit button handler
+            const submitButton = element.querySelector('[data-kt-permissions-modal-action="submit"]');
+            submitButton.addEventListener('click', function (e) {
+                // Prevent default button action
+                e.preventDefault();
+
+                // Validate form before submit
+                if (validator) {
+                    validator.validate().then(function (status) {
+                        console.log('validated!');
+
+                        if (status == 'Valid') {
+                            submitButton.setAttribute('data-kt-indicator', 'on');
+                            submitButton.disabled = true;
+                            
+                            // console.log(document.getElementById('kt_modal_update_curah_hujan_form'));
+                            document.getElementById('kt_modal_update_curah_hujan_form').submit()
+                        } else {
+                            // Show popup warning. For more info check the plugin's official documentation: https://sweetalert2.github.io/
+                            Swal.fire({
+                                text: "Sorry, looks like there are some errors detected, please try again.",
+                                icon: "error",
+                                buttonsStyling: false,
+                                confirmButtonText: "Ok, got it!",
+                                customClass: {
+                                    confirmButton: "btn btn-primary"
+                                }
+                            });
+                        }
+                    });
+                }
+            });
+        }
+
+        return {
+            // Public functions
+            init: function () {
+                initUpdatePermission();
+            }
+        };
+    }();
+
+    // On document ready
+    KTUtil.onDOMContentLoaded(function () {
+        KTUsersUpdatePermission.init();
+    });
+
+    
+    var KTCurahHujanImport = function () {
+        // Shared variables
+        const element = document.getElementById('kt_modal_import_curah_hujan');
+        const form = element.querySelector('#kt_modal_import_curah_hujan_form');
+        const modal = new bootstrap.Modal(element);
+
+        // Init add schedule modal
+        var initUpdatePermission = () => {
+
+            // Init form validation rules. For more info check the FormValidation plugin's official documentation:https://formvalidation.io/
+            var validator = FormValidation.formValidation(
+                form,
+                {
+                    fields: {
                         'curah_hujan': {
                             validators: {
                                 notEmpty: {
@@ -509,7 +696,7 @@
 
                             
                             // console.log(document.getElementById('kt_modal_update_curah_hujan_form'));
-                            document.getElementById('kt_modal_update_curah_hujan_form').submit()
+                            document.getElementById('kt_modal_import_curah_hujan_form').submit()
                         } else {
                             // Show popup warning. For more info check the plugin's official documentation: https://sweetalert2.github.io/
                             Swal.fire({
@@ -537,7 +724,7 @@
 
     // On document ready
     KTUtil.onDOMContentLoaded(function () {
-        KTUsersUpdatePermission.init();
+        KTCurahHujanImport.init();
     });
 
     </script>

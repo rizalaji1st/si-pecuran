@@ -43,6 +43,9 @@ Route::middleware('can:administrator')->prefix('admin')->name('admin.')->group(f
     Route::prefix('manajemen-curah-hujan')->name('manajemen-curah-hujan.')->group(function(){
         Route::get('/',[ManajemenCurahHujanController::class,'index'])->name('index');
         Route::post('/update',[ManajemenCurahHujanController::class,'update'])->name('update');
+        Route::post('/import',[ManajemenCurahHujanController::class,'import'])->name('import');
+        Route::get('/import-view',[ManajemenCurahHujanController::class,'importView'])->name('importView');
+        Route::post('/import-view',[ManajemenCurahHujanController::class,'importViewSave'])->name('importViewSave');
         Route::post('/get-data',[ManajemenCurahHujanController::class,'getData'])->name('get-data');
     });
 });

@@ -5,11 +5,15 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\{
     Wilayah,
-    CurahHujan
+    CurahHujan,
+    CurahHujanImport as CurahHujanImportModel
 };
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
+use App\Imports\CurahHujanImport;
+use Maatwebsite\Excel\Facades\Excel;
+use Illuminate\Support\Facades\DB;
 
 class ManajemenCurahHujanController extends Controller
 {
@@ -80,5 +84,42 @@ class ManajemenCurahHujanController extends Controller
 
         alert()->success('Berhasil','Berhasil edit data curah_hujan');
         return redirect('/admin/manajemen-curah-hujan')->with('curah_hujan', $curahHujan->id);
+    }
+
+    public function import(Request $request){
+        $request->validate([
+            'wilayah' =>'required'
+        ]);
+        CurahHujanImportModel::truncate();
+        Excel::import(new CurahHujanImport((int)$request['wilayah']), request()->file('curah_hujan'));
+
+        return redirect('/admin/manajemen-curah-hujan/import-view');
+    }
+
+    public function importView(){
+        $curahHujanImport = CurahHujanImportModel::orderby(DB::raw('case when status= "tidak valid" then 1 when status= "valid" then 2 end'))->get();
+        $wilayah = Wilayah::find($curahHujanImport[0]->wilayahs_id);
+        return view('pages.admin.manajemen-curah-hujan.import-view', compact('wilayah', 'curahHujanImport'));
+    }
+
+    public function importViewSave(){
+        $curahHujanImport = CurahHujanImportModel::where('status','valid')->get();
+        foreach ($curahHujanImport as $curahHujan) {
+            $tanggal = Carbon::parse($curahHujan->tanggal);
+            CurahHujan::updateOrInsert(
+            [
+            'wilayahs_id' => $curahHujan->wilayahs_id,
+            'tanggal' => $tanggal->day,
+            'bulan' => $tanggal->month,
+            'tahun' => $tanggal->year,
+            ],
+            [
+                'curah_hujan' => $curahHujan->curah_hujan
+            ]
+            );
+        }
+
+        alert()->success('Berhasil','Berhasil import data curah hujan');
+        return redirect('/admin/manajemen-curah-hujan');
     }
 }
