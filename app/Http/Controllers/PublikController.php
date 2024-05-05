@@ -52,7 +52,7 @@ class PublikController extends Controller
         // Loop to create entries if they don't exist
         for ($i = 1; $i <= $jumlahHari; $i++) {
             $curahHujanForDate = $existingCurahHujans->get($i);
-            if ($curahHujanForDate->isEmpty()) {
+            if ($curahHujanForDate == null || $curahHujanForDate->isEmpty()) {
                 // If there are no entries for the date, create a new one
                 CurahHujan::create([
                     'wilayahs_id' => $wilayah->id,
